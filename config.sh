@@ -8,7 +8,7 @@ export PROJ_WHEEL=true
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
-    fetch_unpack https://www.sqlite.org/2018/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
+    fetch_unpack https://www.sqlite.org/2019/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
     (cd sqlite-autoconf-${SQLITE_VERSION} \
         && ./configure --prefix=$BUILD_PREFIX \
         && make -j4 \
