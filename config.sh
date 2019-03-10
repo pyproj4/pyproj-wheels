@@ -7,13 +7,11 @@ export PROJ_WHEEL=true
 
 
 function build_sqlite {
-    if [ -e sqlite-stamp ]; then return; fi
-    fetch_unpack https://www.sqlite.org/2019/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
-    (cd sqlite-autoconf-${SQLITE_VERSION} \
-        && ./configure --prefix=$BUILD_PREFIX \
-        && make -j4 \
-        && make install)
-    touch sqlite-stamp
+    if [ -z "$IS_OSX" ]; then
+        yum install -y sqlite-devel
+    else
+        brew install sqlite3
+    fi
 }
 
 function build_proj {
