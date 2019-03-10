@@ -2,13 +2,13 @@ env:
     global:
         - REPO_DIR=pyproj
         # Commit from your-project that you want to build
-        - BUILD_COMMIT=master
+        - BUILD_COMMIT=v2.0.1rel
         # pip dependencies to _build_ your project
-        - BUILD_DEPENDS="Cython numpy"
+        - BUILD_DEPENDS="Cython"
         # pip dependencies to _test_ your project.  Include any dependencies
         # that you need, that are also specified in BUILD_DEPENDS, this will be
         # a separate install.
-        - TEST_DEPENDS="numpy scipy pytest"
+        - TEST_DEPENDS="Cython mock nose2 pytest"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
         - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -48,13 +48,6 @@ matrix:
         - UNICODE_WIDTH=16
     - os: linux
       env:
-        - MB_PYTHON_VERSION=3.4
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - PLAT=i686
-    - os: linux
-      env:
         - MB_PYTHON_VERSION=3.5
     - os: linux
       env:
@@ -66,6 +59,13 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
+        - PLAT=i686
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.7
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.7
         - PLAT=i686
     - os: osx
       language: generic
@@ -74,15 +74,15 @@ matrix:
     - os: osx
       language: generic
       env:
-        - MB_PYTHON_VERSION=3.4
-    - os: osx
-      language: generic
-      env:
         - MB_PYTHON_VERSION=3.5
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.7
     - os: osx
       language: generic
       env:
