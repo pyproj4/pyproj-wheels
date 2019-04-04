@@ -45,5 +45,11 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     cd ../pyproj
-    py.test -v -s
+    # run a few tests individually
+    python -m pytest ../test/test_doctest_wrapper.py
+    python -m pytest ../test/test_transform.py
+    python -m pytest ../test/test_transformer.py
+    python -m pytest ../test/test_crs.py
+    # run all tests
+    #pytest -v -s
 }
