@@ -46,10 +46,10 @@ function run_tests {
     python --version
     cd ../pyproj
     # run a few tests individually
-    python -m pytest ../test/test_doctest_wrapper.py
-    python -m pytest ../test/test_transform.py
-    python -m pytest ../test/test_transformer.py
-    python -m pytest ../test/test_crs.py
+    python -m pytest test/test_doctest_wrapper.py
+    python -m pytest test/test_transform.py
+    python -m pytest test/test_transformer.py
+    python -m pytest test/test_crs.py
     # run all tests
     #pytest -v -s
 }
