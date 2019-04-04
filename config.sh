@@ -45,5 +45,5 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     cd ../pyproj
-    py.test --cov-report term-missing --cov=pyproj -v -s
+    py.test -v -s
 }
