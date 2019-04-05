@@ -45,7 +45,7 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     # run all tests
-    #cd ../pyproj
+    cd ../pyproj
     #pytest -v -s
     pytest -k "not data_dir" -v -s
 }
