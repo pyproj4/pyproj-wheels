@@ -44,12 +44,8 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
-    # run a few tests individually
-    python -m pytest ../pyproj/test/test_doctest_wrapper.py
-    python -m pytest ../pyproj/test/test_transform.py
-    python -m pytest ../pyproj/test/test_transformer.py
-    python -m pytest ../pyproj/test/test_crs.py
     # run all tests
     #cd ../pyproj
     #pytest -v -s
+    pytest -k "not data_dir" -v -s
 }
