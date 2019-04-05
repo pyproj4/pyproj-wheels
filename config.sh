@@ -47,6 +47,6 @@ function run_tests {
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
     # run all tests
     cd ../pyproj
-    pytest -v -s
-    #pytest -k "not data_dir" -v -s
+    #pytest -v -s
+    pytest -k "not data_dir" -v -s
 }
