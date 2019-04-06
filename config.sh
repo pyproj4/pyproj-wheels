@@ -48,5 +48,5 @@ function run_tests {
     # run all tests
     cd ../pyproj
     #pytest -v -s
-    pytest -k "not data_dir" -v -s
+    pytest -v -s
 }
