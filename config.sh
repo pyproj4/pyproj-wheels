@@ -1,6 +1,6 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=6.0.0
+PROJ_VERSION=6.1.0
 DATUMGRID_VERSION=1.8
 SQLITE_VERSION=3270200
 export PROJ_WHEEL=true
