@@ -37,7 +37,7 @@ function pre_build {
     build_proj
     if [ -z "$IS_OSX" ]; then
         # install updated auditwheel
-        /opt/python/cp36-cp36m/bin/pip install git+https://github.com/daa/auditwheel.git@c4b6339 
+        /opt/python/cp36-cp36m/bin/pip install git+https://github.com/pypa/auditwheel.git@6fdab9f 
     fi
 }
 
