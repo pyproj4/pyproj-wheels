@@ -5,6 +5,12 @@ DATUMGRID_VERSION=1.8
 SQLITE_VERSION=3270200
 export PROJ_WHEEL=true
 
+function build_geos {
+    if [ -z "$IS_OSX" ]; then
+        yum install -y geos-devel
+    fi
+}
+
 
 function build_sqlite {
     if [ -z "$IS_OSX" ]; then
@@ -33,6 +39,7 @@ function pre_build {
     # Runs in the root directory of this repository.
     suppress build_zlib
     suppress build_sqlite
+    suppress build_geos
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     if [ -z "$IS_OSX" ]; then
