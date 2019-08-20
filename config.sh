@@ -41,9 +41,7 @@ function pre_build {
         # install updated auditwheel
         /opt/python/cp36-cp36m/bin/pip install git+https://github.com/pypa/auditwheel.git@6fdab9f 
     fi
-    if [ "$(get_platform)" == x86_64 ]; then
-        pip install $(pip_opts) shapely
-    fi
+    pip install shapely || "Shapely install failed"
 }
 
 function run_tests {
