@@ -44,7 +44,7 @@ function pre_build {
 }
 
 function run_tests {
-    pip install shapely || "Shapely install failed"
+    pip install shapely || echo "Shapely install failed"
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
