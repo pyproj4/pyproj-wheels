@@ -3,15 +3,8 @@
 PROJ_VERSION=6.1.1
 DATUMGRID_VERSION=1.8
 SQLITE_VERSION=3240000
-GEOS_VERSION=3.6.2
 
 export PROJ_WHEEL=true
-
-function build_geos {
-    if [ -z "$IS_OSX" ]; then
-        build_simple geos $GEOS_VERSION https://download.osgeo.org/geos tar.bz2
-    fi
-}
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
@@ -42,7 +35,6 @@ function pre_build {
     # Runs in the root directory of this repository.
     suppress build_zlib
     suppress build_sqlite
-    suppress build_geos
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     if [ -z "$IS_OSX" ]; then
@@ -52,6 +44,9 @@ function pre_build {
 }
 
 function run_tests {
+    if [ "$PLAT" == "x86_64" ]; then
+        pip install $(pip_opts) shapely
+    fi
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
