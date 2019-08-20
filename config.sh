@@ -41,12 +41,12 @@ function pre_build {
         # install updated auditwheel
         /opt/python/cp36-cp36m/bin/pip install git+https://github.com/pypa/auditwheel.git@6fdab9f 
     fi
+    if [ "$(get_platform)" == x86_64 ]; then
+        pip install $(pip_opts) shapely
+    fi
 }
 
 function run_tests {
-    if [ "$PLAT" == "x86_64" ]; then
-        pip install $(pip_opts) shapely
-    fi
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
