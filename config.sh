@@ -41,10 +41,10 @@ function pre_build {
         # install updated auditwheel
         /opt/python/cp36-cp36m/bin/pip install git+https://github.com/pypa/auditwheel.git@6fdab9f 
     fi
-    pip install shapely || "Shapely install failed"
 }
 
 function run_tests {
+    pip install shapely || "Shapely install failed"
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
