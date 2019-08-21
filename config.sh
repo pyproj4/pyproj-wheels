@@ -2,16 +2,18 @@
 # Test for macOS with [ -n "$IS_OSX" ]
 PROJ_VERSION=6.1.1
 DATUMGRID_VERSION=1.8
-SQLITE_VERSION=3270200
+SQLITE_VERSION=3240000
+
 export PROJ_WHEEL=true
 
-
 function build_sqlite {
-    if [ -z "$IS_OSX" ]; then
-        yum install -y sqlite-devel
-    else
-        brew install sqlite3
-    fi
+    if [ -e sqlite-stamp ]; then return; fi
+    fetch_unpack https://www.sqlite.org/2018/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
+    (cd sqlite-autoconf-${SQLITE_VERSION} \
+        && ./configure --prefix=$BUILD_PREFIX \
+        && make -j4 \
+        && make install)
+    touch sqlite-stamp
 }
 
 function build_proj {
@@ -42,6 +44,7 @@ function pre_build {
 }
 
 function run_tests {
+    pip install shapely || echo "Shapely install failed"
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
