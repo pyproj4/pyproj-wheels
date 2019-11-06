@@ -2,7 +2,7 @@ env:
     global:
         - REPO_DIR=pyproj
         # Commit from your-project that you want to build
-        - BUILD_COMMIT=v2.4.0rel
+        - BUILD_COMMIT=v2.4.1rel
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="Cython"
         # pip dependencies to _test_ your project.  Include any dependencies
@@ -12,6 +12,8 @@ env:
         - PLAT=x86_64
         - UNICODE_WIDTH=32
         - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+        # build manylinux 2010 wheels
+        - MB_ML_VER=2010
         # Following generated with
         # travis encrypt -r pyproj4/pyproj-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
         # This is for Rackspace uploads.  Contact Matthew Brett, or the
@@ -45,6 +47,7 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=i686
+        - MB_ML_VER=1
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
@@ -52,6 +55,15 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
+        - MB_ML_VER=1
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.8
+#        - PLAT=i686
+#        - MB_ML_VER=1
     - os: osx
       language: generic
       env:
@@ -64,6 +76,11 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
+# python 3.8 not available on osx yet
+#    - os: osx
+#      language: generic
+#      env:
+#        - MB_PYTHON_VERSION=3.8
 #   - os: osx
 #     language: generic
 #     env:

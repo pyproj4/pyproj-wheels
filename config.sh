@@ -1,6 +1,6 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=6.2.0
+PROJ_VERSION=6.2.1
 DATUMGRID_VERSION=1.8
 SQLITE_VERSION=3240000
 
@@ -19,7 +19,7 @@ function build_sqlite {
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
     fetch_unpack http://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
-    (cd proj-${PROJ_VERSION}/data \
+    (cd proj-${PROJ_VERSION:0:5}/data \
         && curl http://download.osgeo.org/proj/proj-datumgrid-${DATUMGRID_VERSION}.zip > proj-datumgrid.zip \
         && unzip -o proj-datumgrid.zip \
         && rm proj-datumgrid.zip \
