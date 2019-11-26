@@ -93,11 +93,11 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
-# Python 3.8 not available on OSX yet
-#     - os: osx
-#       language: generic
-#       env:
-#         - MB_PYTHON_VERSION=3.8
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - MB_PYTHON_OSX_VER=10.9
 #     - os: osx
 #       language: generic
 #       env:
