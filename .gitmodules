@@ -3,4 +3,4 @@
 	url = https://github.com/matthew-brett/multibuild
 [submodule "pyproj"]
 	path = pyproj
-	url = https://github.com/jswhit/pyproj
+	url = https://github.com/pyproj4/pyproj
