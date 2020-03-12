@@ -2,7 +2,7 @@
 # Test for macOS with [ -n "$IS_OSX" ]
 PROJ_VERSION=7.0.0
 DATUMGRID_VERSION=1.8
-SQLITE_VERSION=3240000
+SQLITE_VERSION=3310100
 LIBTIFF_VERSION=4.1.0
 CURL_VERSION=7.69.1
 
@@ -30,7 +30,7 @@ function build_libtiff {
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
-    fetch_unpack https://www.sqlite.org/2018/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
+    fetch_unpack https://www.sqlite.org/2020/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
     (cd sqlite-autoconf-${SQLITE_VERSION} \
         && ./configure --prefix=$BUILD_PREFIX \
         && make -j4 \
