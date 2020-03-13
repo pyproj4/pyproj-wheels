@@ -1,32 +1,10 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=7.0.0
+PROJ_VERSION=6.3.1
 DATUMGRID_VERSION=1.8
 SQLITE_VERSION=3310100
-LIBTIFF_VERSION=4.1.0
-CURL_VERSION=7.69.1
 
 export PROJ_WHEEL=true
-
-function build_curl {
-    if [ -e curl-stamp ]; then return; fi
-    fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
-    (cd curl-${CURL_VERSION} \
-        && ./configure --prefix=$BUILD_PREFIX \
-        && make -j4 \
-        && make install)
-    touch curl-stamp
-}
-
-function build_libtiff {
-    if [ -e libtiff-stamp ]; then return; fi
-    fetch_unpack https://download.osgeo.org/libtiff/tiff-${LIBTIFF_VERSION}.tar.gz
-    (cd tiff-${LIBTIFF_VERSION} \
-        && ./configure --prefix=$BUILD_PREFIX \
-        && make -j4 \
-        && make install)
-    touch libtiff-stamp
-}
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
