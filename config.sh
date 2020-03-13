@@ -35,8 +35,6 @@ function pre_build {
     # Runs in the root directory of this repository.
     suppress build_zlib
     suppress build_sqlite
-    suppress build_libtiff
-    suppress build_curl
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     if [ -z "$IS_OSX" ]; then
