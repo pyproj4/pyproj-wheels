@@ -2,13 +2,13 @@
 # Test for macOS with [ -n "$IS_OSX" ]
 PROJ_VERSION=6.3.1
 DATUMGRID_VERSION=1.8
-SQLITE_VERSION=3240000
+SQLITE_VERSION=3310100
 
 export PROJ_WHEEL=true
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
-    fetch_unpack https://www.sqlite.org/2018/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
+    fetch_unpack https://www.sqlite.org/2020/sqlite-autoconf-${SQLITE_VERSION}.tar.gz
     (cd sqlite-autoconf-${SQLITE_VERSION} \
         && ./configure --prefix=$BUILD_PREFIX \
         && make -j4 \
@@ -39,7 +39,7 @@ function pre_build {
     build_proj
     if [ -z "$IS_OSX" ]; then
         # install updated auditwheel
-        /opt/python/cp36-cp36m/bin/pip install git+https://github.com/pypa/auditwheel.git@6fdab9f 
+        /opt/python/cp36-cp36m/bin/pip install auditwheel==3.1.0
     fi
 }
 
