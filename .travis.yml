@@ -4,7 +4,8 @@ env:
     global:
         - REPO_DIR=pyproj
         # Commit from your-project that you want to build
-        - BUILD_COMMIT=36f41ce3d67fe0b63211878d8865b55115d62e2b        # pip dependencies to _build_ your project
+        - BUILD_COMMIT=2ddb7b5d94d40d01d0ebc755cfd3c2bcdc12a852
+        # pip dependencies to _build_ your project
         - BUILD_DEPENDS="Cython"
         # pip dependencies to _test_ your project.  Include any dependencies
         # that you need, that are also specified in BUILD_DEPENDS, this will be
