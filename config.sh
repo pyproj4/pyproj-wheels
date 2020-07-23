@@ -8,8 +8,10 @@ CURL_VERSION=7.71.1
 export PROJ_WHEEL=true
 
 
-function build_curl {
-    build_simple curl $CURL_VERSION https://curl.haxx.se/download
+function build_simple_curl {
+    if [ -z "$IS_OSX" ]; then
+        build_simple curl $CURL_VERSION https://curl.haxx.se/download
+    fi
 }
 
 function build_libtiff {
@@ -19,11 +21,9 @@ function build_libtiff {
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
     if [ -n "$IS_OSX" ]; then
-        brew install sqlite3
-        sqlite3 --version
-    else
-        build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2020
+        build_curl
     fi
+    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2020
     touch sqlite-stamp
 }
 
@@ -45,7 +45,7 @@ function pre_build {
     suppress build_libtiff
     # unpack early because SSL support not added with custom curl
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
-    suppress build_curl
+    suppress build_simple_curl
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     if [ -z "$IS_OSX" ]; then
