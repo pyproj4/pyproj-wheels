@@ -100,7 +100,7 @@ after_success:
 
   # if master branch, upload them to PyPI
 - |
-  if [[ "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master"  ]]; then
+  if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
     python -m pip install twine
     python -m twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
   fi 
