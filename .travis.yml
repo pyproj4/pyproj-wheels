@@ -1,103 +1,106 @@
 language: generic
-
 env:
-    global:
-        - REPO_DIR=pyproj
-        # Commit from your-project that you want to build
-        - BUILD_COMMIT=56b5bf9
-        # pip dependencies to _build_ your project
-        - BUILD_DEPENDS="Cython"
-        # pip dependencies to _test_ your project.  Include any dependencies
-        # that you need, that are also specified in BUILD_DEPENDS, this will be
-        # a separate install.
-        - TEST_DEPENDS="Cython mock pytest numpy xarray"
-        - PLAT=x86_64
-        - UNICODE_WIDTH=32
-        - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
-        # build manylinux 2010 wheels
-        - MB_ML_VER=2010
-        # Following generated with
-        # travis encrypt -r pyproj4/pyproj-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
-        # This is for Rackspace uploads.  Contact Matthew Brett, or the
-        # scikit-learn team, for # permission (and the API key) to upload to
-        # the Rackspace account used here, or use your own account.
-        - secure: "AKuGj7CIX0OoZuzjykxPkx+zaCRwOt0XAL6Se2/BqNOeGCh3UmA7wEmSGm+e3k3XMa7+LuIlYh01urADfbkDPZC+E4Pae8gkpGXgajQyBzr2ibFZFHHs09NzCcs7H9C8MmR4NVZOAFMMUP82xkeYr0dV6lE7RT5Ycj9ck5cGHXszGQqWBHghRdhRmk1GmJy/C+yYqr9WebWfTBASP5OVY/J7WVDlTj8Q5IEilYm/M0dOW/DyX7LcgLfFinNaxZ1K2S6JTEPmoGX/GpofN7LV8tjwzkbDSbG5G9q5ap8CYFlN4OpEbWu8n1OtYKqoza2mGqNISGu8TFxV7RQPOzPsoHheDU+0ZLzeXNxgOiknUl3BEVA4TWb6SsR2vCfaafBFBkjyEnps2uoLhNuIRcj5zXo5mYSAklWIa22YxGZpq3WpGZkXXrmY00zlaqpbdLsheJT+GoY/2Si2KNvMGb3UyLSQBujhixAEVXChhmp87xz1ef8+MkvSYhQE5S2BiRiWzLiAoW8CzLmJUQ6qttgZ9gc48qcU29ou71XzbRLm0p7gtO5Ia8XTrfX/8sM/STPnNYIzy2uq+cjHLBhdtPKaAttMo5dd77Zqie3VMhLwKgDQIDq/q4gUiMitb9oq9GD75fP8e4sZo/tfQ8nmvBPVrxq3VpDXLDiMXmhHndslf6c="
-
+  global:
+  - REPO_DIR=pyproj
+  # Commit from your-project that you want to build
+  - BUILD_COMMIT=56b5bf9
+  # pip dependencies to _build_ your project
+  - BUILD_DEPENDS="Cython"
+  # pip dependencies to _test_ your project.  Include any dependencies
+  # that you need, that are also specified in BUILD_DEPENDS, this will be
+  # a separate install.
+  - TEST_DEPENDS="Cython mock pytest numpy xarray"
+  - PLAT=x86_64
+  - UNICODE_WIDTH=32
+  - MB_ML_VER=2010
+  - TWINE_USERNAME=__token__
+  - secure: a1T8Cg+7TxZxtz9vdSE5B+xZTmIqImh7TKnIrp2/WMD0pC8pzHL0ehnkVzAClLBMbnW3tD2FmuhvR2yvFV+PFXHPuUCpih5/6H9a2NVr7VpRsjM4QIMGtHbY+9UbT0fs3k0fDK679L5sDc2d5CjvRQi9i1Dz00puu7KoxXne6Wa4LdYMylMoR38ksIe0C0bYJj+1sgv8tcdUwUP9OfDqiXCabiBVcn6l9UckL5/v1PTMMURxG2kvjfHeoUME/0+dusLUXHs4Nf7rS7Ydsv1+ZUlWCL+F0u1+K93oyhZajOe5StJvw5zEp5aSDfptx/UO6Mw/J4gysJ9P1Glvy2rkl0ZBhHSH/twYMVb06v+o2LvHGCN2bQoEeIWa4Fme+6OddoVhd2trXDy20LPhJfDiOtPDK8hd3rjfcplOLYTU/kMLqhiB9ifZgXL4/Uss0vBA3DV3yQAR8hNSbbyWariFeNvBzM46UDkvQwTIOggxjR3yCHsoPMfLp13RPEA+vcG7Y1KEIKjfYFOkX0uWZN/VlEeP9x120e0XATXxfL+H7ol9UT1cjeSaM+81MH9WzbqotltNkCVoXsevdZ1XMC0M+eG6juWF9Q/RiRq9gfOrBOGBV+0RydrFeM3LVZo0AxQzhv5XeNdjBBgRl40QQA6ycgzGPjLK1RrvRzFWZL52OVU=
+  # build manylinux 2010 wheels
+  - MB_ML_VER=2010
+  - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+  # Following generated with
+  # travis encrypt -r pyproj4/pyproj-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
+  # This is for Rackspace uploads.  Contact Matthew Brett, or the
+  # scikit-learn team, for # permission (and the API key) to upload to
+  # the Rackspace account used here, or use your own account.
+  - secure: "AKuGj7CIX0OoZuzjykxPkx+zaCRwOt0XAL6Se2/BqNOeGCh3UmA7wEmSGm+e3k3XMa7+LuIlYh01urADfbkDPZC+E4Pae8gkpGXgajQyBzr2ibFZFHHs09NzCcs7H9C8MmR4NVZOAFMMUP82xkeYr0dV6lE7RT5Ycj9ck5cGHXszGQqWBHghRdhRmk1GmJy/C+yYqr9WebWfTBASP5OVY/J7WVDlTj8Q5IEilYm/M0dOW/DyX7LcgLfFinNaxZ1K2S6JTEPmoGX/GpofN7LV8tjwzkbDSbG5G9q5ap8CYFlN4OpEbWu8n1OtYKqoza2mGqNISGu8TFxV7RQPOzPsoHheDU+0ZLzeXNxgOiknUl3BEVA4TWb6SsR2vCfaafBFBkjyEnps2uoLhNuIRcj5zXo5mYSAklWIa22YxGZpq3WpGZkXXrmY00zlaqpbdLsheJT+GoY/2Si2KNvMGb3UyLSQBujhixAEVXChhmp87xz1ef8+MkvSYhQE5S2BiRiWzLiAoW8CzLmJUQ6qttgZ9gc48qcU29ou71XzbRLm0p7gtO5Ia8XTrfX/8sM/STPnNYIzy2uq+cjHLBhdtPKaAttMo5dd77Zqie3VMhLwKgDQIDq/q4gUiMitb9oq9GD75fP8e4sZo/tfQ8nmvBPVrxq3VpDXLDiMXmhHndslf6c="
+  
 dist: xenial
 services: docker
-
 matrix:
   include:
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - MB_ML_VER=1
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - PLAT=i686
-        - MB_ML_VER=1
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - MB_ML_VER=1
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - PLAT=i686
-        - MB_ML_VER=1
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.8
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.8
-        - MB_ML_VER=1
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.8
-        - PLAT=i686
-        - MB_ML_VER=1
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.6
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.7
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.8
-        - MB_PYTHON_OSX_VER=10.9
-
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+    - MB_ML_VER=1
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+    - PLAT=i686
+    - MB_ML_VER=1
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.7
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.7
+    - MB_ML_VER=1
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.7
+    - PLAT=i686
+    - MB_ML_VER=1
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.8
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.8
+    - MB_ML_VER=1
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.8
+    - PLAT=i686
+    - MB_ML_VER=1
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.6
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.7
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.8
+    - MB_PYTHON_OSX_VER=10.9
 before_install:
-    - source multibuild/common_utils.sh
-    - source multibuild/travis_steps.sh
-    - before_install
-
+- source multibuild/common_utils.sh
+- source multibuild/travis_steps.sh
+- before_install
 install:
-    # Maybe get and clean and patch source
-    - clean_code $REPO_DIR $BUILD_COMMIT
-    - build_wheel $REPO_DIR $PLAT
-
+- clean_code $REPO_DIR $BUILD_COMMIT
+- build_wheel $REPO_DIR $PLAT
 script:
-    - install_run $PLAT
-
+- install_run $PLAT
 after_success:
-    # Upload wheels to Rackspace container
-    - pip install wheelhouse-uploader
-    # This uploads the wheels to a Rackspace container owned by the
-    # scikit-learn team, available at http://wheels.scipy.org.  See above
-    # for information on using this account or choosing another.
-    - python -m wheelhouse_uploader upload --local-folder
-        ${TRAVIS_BUILD_DIR}/wheelhouse/
-        --no-update-index
-        wheels
+# Upload wheels to Rackspace container
+#- pip install wheelhouse-uploader
+# This uploads the wheels to a Rackspace container owned by the
+# scikit-learn team, available at http://wheels.scipy.org.  See above
+# for information on using this account or choosing another.
+#- python -m wheelhouse_uploader upload --local-folder
+#    ${TRAVIS_BUILD_DIR}/wheelhouse/
+#    --no-update-index
+#    wheels
+
+  # if master branch, upload them to PyPI
+- |
+  if [[ "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master"  ]]; then
+    python3 -m pip install twine
+    python3 -m twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl
+  fi 
