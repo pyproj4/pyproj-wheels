@@ -3,7 +3,7 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=56b5bf9
+  - BUILD_COMMIT=6d83854
   # pip dependencies to _build_ your project
   - BUILD_DEPENDS="Cython"
   # pip dependencies to _test_ your project.  Include any dependencies
@@ -34,41 +34,13 @@ matrix:
     - MB_PYTHON_VERSION=3.6
   - os: linux
     env:
-    - MB_PYTHON_VERSION=3.6
-    - MB_ML_VER=1
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.6
-    - PLAT=i686
-    - MB_ML_VER=1
-  - os: linux
-    env:
     - MB_PYTHON_VERSION=3.7
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - MB_ML_VER=1
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=i686
-    - MB_ML_VER=1
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.8
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.8
-    - MB_ML_VER=1
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=i686
-    - MB_ML_VER=1
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.6
   - os: osx
     language: generic
     env:
