@@ -43,6 +43,10 @@ matrix:
   - os: osx
     language: generic
     env:
+    - MB_PYTHON_VERSION=3.6
+  - os: osx
+    language: generic
+    env:
     - MB_PYTHON_VERSION=3.7
   - os: osx
     language: generic
