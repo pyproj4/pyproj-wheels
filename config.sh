@@ -47,12 +47,12 @@ function build_libtiff {
 
 function build_sqlite {
     if [ -e sqlite-stamp ]; then return; fi
-    if [ -n "$IS_OSX" ]; then
-        brew install sqlite3
-        sqlite3 --version
-    else
-        build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2020
-    fi
+    # if [ -n "$IS_OSX" ]; then
+    #     brew install sqlite3
+    #     sqlite3 --version
+    # else
+    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2020
+    # fi
     touch sqlite-stamp
 }
 
