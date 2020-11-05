@@ -1,6 +1,6 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=7.1.0
+PROJ_VERSION=7.2.0
 SQLITE_VERSION=3320300
 LIBTIFF_VERSION=4.1.0
 CURL_VERSION=7.71.1
@@ -58,11 +58,8 @@ function build_sqlite {
 
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
-    #fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
-    #cd proj-${PROJ_VERSION:0:5}
-    fetch_unpack https://github.com/OSGeo/PROJ/archive/master.zip
-    (cd PROJ-master \
-        && sh autogen.sh \
+    fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
+    (cd proj-${PROJ_VERSION:0:5}\
         && ./configure --prefix=$PROJ_DIR --with-curl=$BUILD_PREFIX/bin/curl-config \
         && make -j4 \
         && make install)

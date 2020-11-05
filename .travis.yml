@@ -3,12 +3,12 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=eba17363053d8d7d3d869a206df2bcb8c8a604be
+  - BUILD_COMMIT=3.0.0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
   # a separate install.
-  - TEST_DEPENDS="Cython mock pytest numpy xarray"
+  - TEST_DEPENDS="Cython mock pytest numpy pandas xarray"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
   - MB_ML_VER=2010
@@ -39,7 +39,7 @@ matrix:
     - MB_PYTHON_VERSION=3.8
   - os: linux
     env:
-    - MB_PYTHON_VERSION=3.8
+    - MB_PYTHON_VERSION=3.9
   - os: osx
     language: generic
     env:
@@ -52,7 +52,10 @@ matrix:
     language: generic
     env:
     - MB_PYTHON_VERSION=3.8
-    - MB_PYTHON_OSX_VER=10.9
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.9
 before_install:
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
