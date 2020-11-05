@@ -3,12 +3,12 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.0.rc1
+  - BUILD_COMMIT=3.0.0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
   # a separate install.
-  - TEST_DEPENDS="Cython mock pytest numpy xarray"
+  - TEST_DEPENDS="Cython mock pytest numpy pandas xarray"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
   - MB_ML_VER=2010
