@@ -1,6 +1,6 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=7.2.0
+PROJ_VERSION=7.2.1
 SQLITE_VERSION=3320300
 LIBTIFF_VERSION=4.1.0
 CURL_VERSION=7.71.1
