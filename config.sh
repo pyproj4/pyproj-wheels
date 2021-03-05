@@ -1,12 +1,12 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=7.2.1
 SQLITE_VERSION=3320300
 LIBTIFF_VERSION=4.1.0
 CURL_VERSION=7.71.1
 NGHTTP2_VERSION=1.35.1
 
 export PROJ_WHEEL=true
+export PROJ_VERSION=7.2.1
 
 function build_nghttp2 {
     if [ -e nghttp2-stamp ]; then return; fi
