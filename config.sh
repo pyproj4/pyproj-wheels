@@ -1,6 +1,6 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-PROJ_VERSION=7.2.0
+PROJ_VERSION=7.2.1
 SQLITE_VERSION=3320300
 LIBTIFF_VERSION=4.1.0
 CURL_VERSION=7.71.1
@@ -83,7 +83,7 @@ function pre_build {
 
 function run_tests {
     pyproj -v
-    python -m pip install shapely || echo "Shapely install failed"
+    python -m pip install shapely~=1.7.1 || echo "Shapely install failed"
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
