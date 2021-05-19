@@ -3,16 +3,15 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.0.1
+  - BUILD_COMMIT=3.1rc0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
   # a separate install.
-  - TEST_DEPENDS="Cython mock pytest numpy pandas xarray"
+  - TEST_DEPENDS="Cython pytest numpy pandas xarray"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
   - MB_ML_VER=2010
-  - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - TWINE_USERNAME=__token__
   # TWINE_PASSWORD is secure env var
   - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -29,9 +28,6 @@ matrix:
   include:
   - os: linux
     env:
-    - MB_PYTHON_VERSION=3.6
-  - os: linux
-    env:
     - MB_PYTHON_VERSION=3.7
   - os: linux
     env:
@@ -39,10 +35,6 @@ matrix:
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.9
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.6
-    - PLAT=i686
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.7
@@ -55,16 +47,6 @@ matrix:
     env:
     - MB_PYTHON_VERSION=3.9
     - PLAT=i686
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.6
-    - PLAT=aarch64
-    - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
-    - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
   - os: linux
     arch: arm64-graviton2
     dist: focal
@@ -95,10 +77,6 @@ matrix:
     - PLAT=aarch64
     - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
     - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.6
   - os: osx
     language: generic
     env:
