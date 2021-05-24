@@ -1,12 +1,12 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-SQLITE_VERSION=3320300
-LIBTIFF_VERSION=4.1.0
-CURL_VERSION=7.71.1
-NGHTTP2_VERSION=1.35.1
+SQLITE_VERSION=3350500
+LIBTIFF_VERSION=4.3.0
+CURL_VERSION=7.76.1
+NGHTTP2_VERSION=1.43.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=7.2.1
+export PROJ_VERSION=8.0.1
 
 function build_nghttp2 {
     if [ -e nghttp2-stamp ]; then return; fi
@@ -51,7 +51,7 @@ function build_sqlite {
     #     brew install sqlite3
     #     sqlite3 --version
     # else
-    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2020
+    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2021
     # fi
     touch sqlite-stamp
 }
