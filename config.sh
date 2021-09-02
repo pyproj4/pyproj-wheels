@@ -6,7 +6,7 @@ CURL_VERSION=7.76.1
 NGHTTP2_VERSION=1.43.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=8.1.1RC2
+export PROJ_VERSION=8.1.1
 
 function build_nghttp2 {
     if [ -e nghttp2-stamp ]; then return; fi
