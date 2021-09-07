@@ -32,8 +32,6 @@ function build_curl_ssl {
         flags="$flags --with-ssl"
     fi
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
-    # Remove previously installed curl.
-    rm -rf /usr/local/lib/libcurl*
     (cd curl-${CURL_VERSION} \
         && if [ -z "$IS_OSX" ]; then \
         LIBS=-ldl ./configure $flags; else \
@@ -63,6 +61,7 @@ function build_sqlite {
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
+    suppress build_curl_ssl
     (cd proj-${PROJ_VERSION:0:5}\
         && ./configure --prefix=$PROJ_DIR --with-curl=$BUILD_PREFIX/bin/curl-config \
         && make -j4 \
@@ -73,7 +72,6 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    suppress build_curl_ssl
     suppress build_sqlite
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
