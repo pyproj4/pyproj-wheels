@@ -46,6 +46,7 @@ function build_libtiff {
 }
 
 function build_sqlite {
+    CFLAGS="$CFLAGS -DHAVE_PREAD64 -DHAVE_PWRITE64"
     if [ -e sqlite-stamp ]; then return; fi
     # if [ -n "$IS_OSX" ]; then
     #     brew install sqlite3
@@ -77,7 +78,7 @@ function pre_build {
     build_proj
     if [ -z "$IS_OSX" ]; then
         # install updated auditwheel
-        /opt/python/cp36-cp36m/bin/pip install auditwheel==3.1.0
+        /opt/python/cp36-cp36m/bin/pip install auditwheel==4.0.0
     fi
 }
 
