@@ -22,8 +22,9 @@ function build_curl_ssl {
     if [ -e curl-stamp ]; then return; fi
     CFLAGS="$CFLAGS -g -O2"
     CXXFLAGS="$CXXFLAGS -g -O2"
-    local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
+    suppress build_zlib
     suppress build_nghttp2
+    local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
     if [ -n "$IS_OSX" ]; then
         flags="$flags --with-darwinssl"
     else  # manylinux
@@ -31,6 +32,8 @@ function build_curl_ssl {
         flags="$flags --with-ssl"
     fi
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
+    # Remove previously installed curl.
+    rm -rf /usr/local/lib/libcurl*
     (cd curl-${CURL_VERSION} \
         && if [ -z "$IS_OSX" ]; then \
         LIBS=-ldl ./configure $flags; else \
@@ -70,7 +73,6 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    suppress build_zlib
     suppress build_curl_ssl
     suppress build_sqlite
     suppress build_libtiff
