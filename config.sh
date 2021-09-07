@@ -76,10 +76,6 @@ function pre_build {
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
-    if [ -z "$IS_OSX" ]; then
-        # install updated auditwheel
-        /opt/python/cp36-cp36m/bin/pip install auditwheel==4.0.0
-    fi
 }
 
 function run_tests {
