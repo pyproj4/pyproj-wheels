@@ -22,8 +22,9 @@ function build_curl_ssl {
     if [ -e curl-stamp ]; then return; fi
     CFLAGS="$CFLAGS -g -O2"
     CXXFLAGS="$CXXFLAGS -g -O2"
-    local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
+    suppress build_zlib
     suppress build_nghttp2
+    local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
     if [ -n "$IS_OSX" ]; then
         flags="$flags --with-darwinssl"
     else  # manylinux
@@ -46,6 +47,7 @@ function build_libtiff {
 }
 
 function build_sqlite {
+    CFLAGS="$CFLAGS -DHAVE_PREAD64 -DHAVE_PWRITE64"
     if [ -e sqlite-stamp ]; then return; fi
     # if [ -n "$IS_OSX" ]; then
     #     brew install sqlite3
@@ -59,6 +61,7 @@ function build_sqlite {
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
+    suppress build_curl_ssl
     (cd proj-${PROJ_VERSION:0:5}\
         && ./configure --prefix=$PROJ_DIR --with-curl=$BUILD_PREFIX/bin/curl-config \
         && make -j4 \
@@ -69,16 +72,10 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    suppress build_zlib
-    suppress build_curl_ssl
     suppress build_sqlite
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
-    if [ -z "$IS_OSX" ]; then
-        # install updated auditwheel
-        /opt/python/cp36-cp36m/bin/pip install auditwheel==3.1.0
-    fi
 }
 
 function run_tests {

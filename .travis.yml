@@ -11,7 +11,7 @@ env:
   - TEST_DEPENDS="Cython pytest numpy pandas xarray"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
-  - MB_ML_VER=2010
+  - MB_ML_VER=_2_24
   - TWINE_USERNAME=__token__
   # TWINE_PASSWORD is secure env var
   - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -29,57 +29,57 @@ matrix:
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.7
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
+    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.8
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
+    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.9
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=i686
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=i686
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=i686
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=aarch64
-    - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
-    - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=aarch64
-    - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
-    - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=aarch64
-    - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
-    - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.7
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.7
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
   - os: osx
     language: generic
     env:
