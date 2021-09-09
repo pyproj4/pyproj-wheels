@@ -29,72 +29,69 @@ matrix:
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.7
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
-    - MB_ML_VER=_2_24
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
-    - MB_ML_VER=_2_24
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
-    - MB_ML_VER=_2_24
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=i686
     - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=i686
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=i686
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=aarch64
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=aarch64
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=aarch64
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.7
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.8
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.9
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.7
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=i686
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.7
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=aarch64
+  #   - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.7
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
 before_install:
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
