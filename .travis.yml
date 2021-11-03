@@ -28,10 +28,6 @@ matrix:
   include:
   - os: linux
     env:
-    - MB_PYTHON_VERSION=3.7
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
-  - os: linux
-    env:
     - MB_PYTHON_VERSION=3.8
     - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - os: linux
@@ -40,26 +36,12 @@ matrix:
     - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - os: linux
     env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=i686
-  - os: linux
-    env:
     - MB_PYTHON_VERSION=3.8
     - PLAT=i686
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.9
     - PLAT=i686
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.7
-    - PLAT=aarch64
-    - MB_ML_VER=2014
-    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
   - os: linux
     arch: arm64-graviton2
     dist: focal
@@ -80,10 +62,6 @@ matrix:
     - PLAT=aarch64
     - MB_ML_VER=2014
     - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-  - os: osx
-    language: generic
-    env:
-    - MB_PYTHON_VERSION=3.7
   - os: osx
     language: generic
     env:
