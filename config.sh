@@ -8,6 +8,18 @@ NGHTTP2_VERSION=1.43.0
 export PROJ_WHEEL=true
 export PROJ_VERSION=8.2.0
 
+
+function install_curl_certs {
+    if [ -n "$IS_OSX" ]; then
+        ${PYTHON_EXE} -m pip install certifi
+        export PIP_CERT=$(${PYTHON_EXE} -c "import certifi; print(certifi.where())")
+        openssl x509 -outform PEM \
+            -in ${PIP_CERT} \
+            -out certifi.pem
+        export CURL_CA_BUNDLE=$PWD/certifi.pem
+    fi
+}
+
 function build_nghttp2 {
     if [ -e nghttp2-stamp ]; then return; fi
     fetch_unpack https://github.com/nghttp2/nghttp2/releases/download/v${NGHTTP2_VERSION}/nghttp2-${NGHTTP2_VERSION}.tar.gz
@@ -82,6 +94,7 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
+    install_curl_certs
     suppress build_zlib
     suppress build_sqlite
     suppress build_libtiff
