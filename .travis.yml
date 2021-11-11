@@ -3,7 +3,7 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.2.1
+  - BUILD_COMMIT=af695bf
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
@@ -36,11 +36,18 @@ matrix:
     - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - os: linux
     env:
+    - MB_PYTHON_VERSION=3.10
+  - os: linux
+    env:
     - MB_PYTHON_VERSION=3.8
     - PLAT=i686
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.9
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.10
     - PLAT=i686
   - os: linux
     arch: arm64-graviton2
@@ -62,6 +69,16 @@ matrix:
     - PLAT=aarch64
     - MB_ML_VER=2014
     - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+  - os: linux
+    arch: arm64-graviton2
+    dist: focal
+    virt: vm
+    group: edge
+    env:
+    - MB_PYTHON_VERSION=3.10
+    - PLAT=aarch64
+    - MB_ML_VER=2014
+    - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
   - os: osx
     language: generic
     env:
@@ -70,6 +87,10 @@ matrix:
     language: generic
     env:
     - MB_PYTHON_VERSION=3.9
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.10
 before_install:
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
