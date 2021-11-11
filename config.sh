@@ -45,7 +45,7 @@ function build_curl_ssl {
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
     (cd curl-${CURL_VERSION} \
         && if [ -z "$IS_OSX" ]; then \
-        LIBS=-ldl ./configure $flags; else \
+        LD_LIBRARY_PATH=$BUILD_PREFIX/lib:$LD_LIBRARY_PATH LIBS=-ldl ./configure $flags; else \
         ./configure $flags; fi\
         && make -j4 \
         && make install)
@@ -100,6 +100,7 @@ function pre_build {
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
+    ${PYTHON_EXE} -m pip install -U pip
 }
 
 function run_tests {

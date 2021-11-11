@@ -29,11 +29,9 @@ matrix:
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.8
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.9
-    - DOCKER_IMAGE=quay.io/pypa/manylinux${MB_ML_VER}_${PLAT}:2021-02-28-1f32361
   - os: linux
     env:
     - MB_PYTHON_VERSION=3.10
