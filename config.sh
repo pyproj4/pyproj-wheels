@@ -11,9 +11,9 @@ export PROJ_VERSION=8.2.0
 
 function set_ld_library_path {
     if [ -n "$IS_OSX" ]; then
-        export DYLD_LIBRARY_PATH=$BUILD_PREFIX/lib:$DYLD_LIBRARY_PATH
+        export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$BUILD_PREFIX/lib
     else
-        export LD_LIBRARY_PATH=$BUILD_PREFIX/lib:$LD_LIBRARY_PATH
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_PREFIX/lib
     fi
 }
 
@@ -116,7 +116,6 @@ function pre_build {
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     remove_curl_certs
-    ${PYTHON_EXE} -m pip install -U pip
 }
 
 function run_tests {
