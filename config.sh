@@ -9,15 +9,6 @@ export PROJ_WHEEL=true
 export PROJ_VERSION=8.2.0
 
 
-function set_ld_library_path {
-    if [ -n "$IS_OSX" ]; then
-        export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$BUILD_PREFIX/lib
-    else
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_PREFIX/lib
-    fi
-}
-
-
 function install_curl_certs {
     if [ -n "$IS_OSX" ]; then
         ${PYTHON_EXE} -m pip install certifi
@@ -52,9 +43,11 @@ function build_curl_ssl {
     local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
     if [ -n "$IS_OSX" ]; then
         flags="$flags --with-darwinssl"
+        DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$BUILD_PREFIX/lib
     else  # manylinux
         suppress build_openssl
         flags="$flags --with-ssl"
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_PREFIX/lib
     fi
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
     (cd curl-${CURL_VERSION} \
@@ -108,7 +101,6 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    set_ld_library_path
     install_curl_certs
     suppress build_zlib
     suppress build_sqlite
