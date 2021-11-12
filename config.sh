@@ -12,11 +12,16 @@ export PROJ_VERSION=8.2.0
 function install_curl_certs {
     if [ -n "$IS_OSX" ]; then
         ${PYTHON_EXE} -m pip install certifi
-        export PIP_CERT=$(${PYTHON_EXE} -c "import certifi; print(certifi.where())")
         openssl x509 -outform PEM \
-            -in ${PIP_CERT} \
+            -in $(${PYTHON_EXE} -c "import certifi; print(certifi.where())") \
             -out certifi.pem
         export CURL_CA_BUNDLE=$PWD/certifi.pem
+    fi
+}
+
+function remove_curl_certs {
+    if [ -n "$IS_OSX" ]; then
+        unset CURL_CA_BUNDLE
     fi
 }
 
@@ -100,6 +105,7 @@ function pre_build {
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
+    remove_curl_certs
     ${PYTHON_EXE} -m pip install -U pip
 }
 
