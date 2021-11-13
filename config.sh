@@ -43,7 +43,6 @@ function build_curl_ssl {
     local flags="--prefix=$BUILD_PREFIX --with-nghttp2=$BUILD_PREFIX --with-zlib=$BUILD_PREFIX"
     if [ -n "$IS_OSX" ]; then
         flags="$flags --with-darwinssl"
-        DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$BUILD_PREFIX/lib
     else  # manylinux
         suppress build_openssl
         flags="$flags --with-ssl"
@@ -83,18 +82,27 @@ function build_proj {
     get_modern_cmake
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
     suppress build_curl_ssl
-    (cd proj-${PROJ_VERSION:0:5}\
-        && cmake . \
-        -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
-        -DBUILD_SHARED_LIBS=ON \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DENABLE_IPO=ON \
-        -DBUILD_APPS:BOOL=OFF \
-        -DBUILD_TESTING:BOOL=OFF \
-        -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        && cmake --build . -j$(nproc) \
-        && cmake --install .)
+    if [ -n "$IS_OSX" ]; then
+        (cd proj-${PROJ_VERSION:0:5} \
+            && ./configure \
+            --prefix=$PROJ_DIR \
+            --with-curl=$BUILD_PREFIX/bin/curl-config \
+            && make -j$(nproc) \
+            && make install)
+    else
+        (cd proj-${PROJ_VERSION:0:5} \
+            && cmake . \
+            -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
+            -DBUILD_SHARED_LIBS=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_IPO=ON \
+            -DBUILD_APPS:BOOL=OFF \
+            -DBUILD_TESTING:BOOL=OFF \
+            -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
+            -DCMAKE_INSTALL_LIBDIR=lib \
+            && cmake --build . -j$(nproc) \
+            && cmake --install .)
+    fi
     touch proj-stamp
 }
 
