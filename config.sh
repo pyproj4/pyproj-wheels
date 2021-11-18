@@ -6,7 +6,24 @@ CURL_VERSION=7.76.1
 NGHTTP2_VERSION=1.43.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=8.1.1
+export PROJ_VERSION=8.2.0
+
+
+function install_curl_certs {
+    if [ -n "$IS_OSX" ]; then
+        ${PYTHON_EXE} -m pip install certifi
+        openssl x509 -outform PEM \
+            -in $(${PYTHON_EXE} -c "import certifi; print(certifi.where())") \
+            -out certifi.pem
+        export CURL_CA_BUNDLE=$PWD/certifi.pem
+    fi
+}
+
+function remove_curl_certs {
+    if [ -n "$IS_OSX" ]; then
+        unset CURL_CA_BUNDLE
+    fi
+}
 
 function build_nghttp2 {
     if [ -e nghttp2-stamp ]; then return; fi
@@ -29,6 +46,7 @@ function build_curl_ssl {
     else  # manylinux
         suppress build_openssl
         flags="$flags --with-ssl"
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_PREFIX/lib
     fi
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
     (cd curl-${CURL_VERSION} \
@@ -61,23 +79,43 @@ function build_sqlite {
 
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
+    get_modern_cmake
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
     suppress build_curl_ssl
-    (cd proj-${PROJ_VERSION:0:5}\
-        && ./configure --prefix=$PROJ_DIR --with-curl=$BUILD_PREFIX/bin/curl-config \
-        && make -j4 \
-        && make install)
+    if [ -n "$IS_OSX" ]; then
+        (cd proj-${PROJ_VERSION:0:5} \
+            && ./configure \
+            --prefix=$PROJ_DIR \
+            --with-curl=$BUILD_PREFIX/bin/curl-config \
+            && make -j$(nproc) \
+            && make install)
+    else
+        (cd proj-${PROJ_VERSION:0:5} \
+            && cmake . \
+            -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
+            -DBUILD_SHARED_LIBS=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_IPO=ON \
+            -DBUILD_APPS:BOOL=OFF \
+            -DBUILD_TESTING:BOOL=OFF \
+            -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
+            -DCMAKE_INSTALL_LIBDIR=lib \
+            && cmake --build . -j$(nproc) \
+            && cmake --install .)
+    fi
     touch proj-stamp
 }
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
+    install_curl_certs
     suppress build_zlib
     suppress build_sqlite
     suppress build_libtiff
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
+    remove_curl_certs
 }
 
 function run_tests {
