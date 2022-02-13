@@ -26,69 +26,90 @@ dist: xenial
 services: docker
 matrix:
   include:
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.9
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.10
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=i686
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=i686
-  - os: linux
-    env:
-    - MB_PYTHON_VERSION=3.10
-    - PLAT=i686
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=aarch64
-    - MB_ML_VER=2014
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.9
-    - PLAT=aarch64
-    - MB_ML_VER=2014
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.10
-    - PLAT=aarch64
-    - MB_ML_VER=2014
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.10
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=i686
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=i686
+  # - os: linux
+  #   env:
+  #   - MB_PYTHON_VERSION=3.10
+  #   - PLAT=i686
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  #   - PLAT=aarch64
+  #   - MB_ML_VER=2014
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  #   - PLAT=aarch64
+  #   - MB_ML_VER=2014
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: linux
+  #   arch: arm64-graviton2
+  #   dist: focal
+  #   virt: vm
+  #   group: edge
+  #   env:
+  #   - MB_PYTHON_VERSION=3.10
+  #   - PLAT=aarch64
+  #   - MB_ML_VER=2014
+  #   - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.8
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.9
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - MB_PYTHON_VERSION=3.10
   - os: osx
+    osx_image: xcode11.6
+    arch: arm64
     language: generic
     env:
     - MB_PYTHON_VERSION=3.8
+    - PLAT=arm64
   - os: osx
+    osx_image: xcode11.6
+    arch: arm64
     language: generic
     env:
     - MB_PYTHON_VERSION=3.9
+    - PLAT=arm64
   - os: osx
+    osx_image: xcode11.6
+    arch: arm64
     language: generic
     env:
     - MB_PYTHON_VERSION=3.10
+    - PLAT=arm64
 before_install:
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
