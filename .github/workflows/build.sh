@@ -24,6 +24,60 @@ echo "::group::Install a virtualenv"
 echo "::endgroup::"
 
 echo "::group::Build wheel"
+  # https://github.com/multi-build/multibuild/pull/452
+  function install_pypy {
+      # Installs pypy.org PyPy
+      # Parameter $version
+      # Version given in major or major.minor or major.minor.micro e.g
+      # "3" or "3.7" or "3.7.1".
+      # Uses $PLAT
+      # sets $PYTHON_EXE variable to python executable
+
+      local version=$1
+      case "$PLAT" in
+      "x86_64")  if [ -n "$IS_MACOS" ]; then
+                    suffix="osx64";
+                else
+                    suffix="linux64";
+                fi;;
+      "i686")    suffix="linux32";;
+      "ppc64le") suffix="ppc64le";;
+      "s390x")    suffix="s390x";;
+      "aarch64")  suffix="aarch64";;
+      *) echo unknown platform "$PLAT"; exit 1;;
+      esac
+
+      # Need to convert pypy-7.2 to pypy2.7-v7.2.0 and pypy3.6-7.3 to pypy3.6-v7.3.0
+      local prefix=$(get_pypy_build_prefix $version)
+      # since prefix is pypy3.6v7.2 or pypy2.7v7.2, grab the 4th (0-index) letter
+      local major=${prefix:4:1}
+      # get the pypy version 7.2.0
+      if [[ $version =~ pypy([0-9]+)\.([0-9]+)-([0-9]+)\.([0-9]+)\.([0-9]+) ]]; then
+          local py_version=${BASH_REMATCH[3]}.${BASH_REMATCH[4]}.${BASH_REMATCH[5]}
+      else
+          local py_version=$(fill_pypy_ver $(echo $version | cut -f2 -d-))
+      fi
+
+      local py_build=$prefix$py_version-$suffix
+      local py_zip=$py_build.tar.bz2
+      local zip_path=$DOWNLOADS_SDIR/$py_zip
+      mkdir -p $DOWNLOADS_SDIR
+      wget -nv $PYPY_URL/${py_zip} -P $DOWNLOADS_SDIR
+      untar $zip_path
+      # bug/feature: pypy package for pypy3 only has bin/pypy3 :(
+      if [ "$major" == "3" ] && [ ! -x "$py_build/bin/pypy" ]; then
+          ln $py_build/bin/pypy3 $py_build/bin/pypy
+      fi
+      PYTHON_EXE=$(realpath $py_build/bin/pypy)
+      $PYTHON_EXE -mensurepip
+      $PYTHON_EXE -mpip install --upgrade pip setuptools wheel
+      if [ "$major" == "3" ] && [ ! -x "$py_build/bin/pip" ]; then
+          ln $py_build/bin/pip3 $py_build/bin/pip
+      fi
+      PIP_CMD=pip
+  }
+
+  # https://github.com/multi-build/multibuild/pull/451
   function clean_code {
       local repo_dir=${1:-$REPO_DIR}
       local build_commit=${2:-$BUILD_COMMIT}
