@@ -37,7 +37,7 @@ jobs:
       MB_PYTHON_VERSION: "${{ matrix.python }}"
       MB_ML_VER: "2014"
       BUILD_DEPENDS: "cython"
-      TEST_DEPENDS: "cython pytest numpy pandas xarray"
+      TEST_DEPENDS: "cython pytest numpy==1.21.5 pandas xarray"
       TRAVIS_OS_NAME: ${{ matrix.os-name }}
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macos-target }}
     steps:
