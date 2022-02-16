@@ -6,7 +6,7 @@ CURL_VERSION=7.76.1
 NGHTTP2_VERSION=1.43.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=8.2.0
+export PROJ_VERSION=9.0.0RC1
 
 
 function install_curl_certs {
@@ -82,27 +82,18 @@ function build_proj {
     get_modern_cmake
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
     suppress build_curl_ssl
-    if [ -n "$IS_OSX" ]; then
-        (cd proj-${PROJ_VERSION:0:5} \
-            && ./configure \
-            --prefix=$PROJ_DIR \
-            --with-curl=$BUILD_PREFIX/bin/curl-config \
-            && make -j$(nproc) \
-            && make install)
-    else
-        (cd proj-${PROJ_VERSION:0:5} \
-            && cmake . \
-            -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
-            -DBUILD_SHARED_LIBS=ON \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DENABLE_IPO=ON \
-            -DBUILD_APPS:BOOL=OFF \
-            -DBUILD_TESTING:BOOL=OFF \
-            -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
-            -DCMAKE_INSTALL_LIBDIR=lib \
-            && cmake --build . -j$(nproc) \
-            && cmake --install .)
-    fi
+    (cd proj-${PROJ_VERSION:0:5} \
+        && cmake . \
+        -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DENABLE_IPO=ON \
+        -DBUILD_APPS:BOOL=OFF \
+        -DBUILD_TESTING:BOOL=OFF \
+        -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        && cmake --build . -j$(nproc) \
+        && cmake --install .)
     touch proj-stamp
 }
 
