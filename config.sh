@@ -107,6 +107,9 @@ function pre_build {
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     remove_curl_certs
+    if [ -n "$IS_OSX" ]; then
+        export LDFLAGS="${LDFLAGS} -Wl,-rpath,${PROJ_DIR}/lib"
+    fi
 }
 
 function run_tests {
