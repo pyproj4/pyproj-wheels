@@ -33,9 +33,17 @@ jobs:
             platform: "x86_64"
           - os: "macos-10.15"
             platform: "i686"
+          - os: "macos-10.15"
+            platform: "universal2"
+            python: "pypy3.8-7.3.7"
         include:
           - os: "macos-10.15"
             os-name: "osx"
+          - os: "macos-10.15"
+            os-name: "osx"
+            platform: "x86_64"
+            python: "pypy3.8-7.3.7"
+            macos-target: "10.15"
           - os: "ubuntu-20.04"
             os-name: "focal"
     env:
