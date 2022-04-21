@@ -56,6 +56,7 @@ matrix:
     - MB_ML_VER=2014
     - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
 before_install:
+- git config --global advice.detachedHead false
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
 - before_install
