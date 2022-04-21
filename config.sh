@@ -82,27 +82,18 @@ function build_proj {
     get_modern_cmake
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
     suppress build_curl_ssl
-    if [ -n "$IS_OSX" ]; then
-        (cd proj-${PROJ_VERSION:0:5} \
-            && ./configure \
-            --prefix=$PROJ_DIR \
-            --with-curl=$BUILD_PREFIX/bin/curl-config \
-            && make -j$(nproc) \
-            && make install)
-    else
-        (cd proj-${PROJ_VERSION:0:5} \
-            && cmake . \
-            -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
-            -DBUILD_SHARED_LIBS=ON \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DENABLE_IPO=ON \
-            -DBUILD_APPS:BOOL=OFF \
-            -DBUILD_TESTING:BOOL=OFF \
-            -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
-            -DCMAKE_INSTALL_LIBDIR=lib \
-            && cmake --build . -j$(nproc) \
-            && cmake --install .)
-    fi
+    (cd proj-${PROJ_VERSION:0:5} \
+        && cmake . \
+        -DCMAKE_INSTALL_PREFIX=$PROJ_DIR \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DENABLE_IPO=ON \
+        -DBUILD_APPS:BOOL=OFF \
+        -DBUILD_TESTING:BOOL=OFF \
+        -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        && cmake --build . -j$(nproc) \
+        && cmake --install .)
     touch proj-stamp
 }
 
@@ -116,6 +107,9 @@ function pre_build {
     export PROJ_DIR=$PWD/pyproj/pyproj/proj_dir
     build_proj
     remove_curl_certs
+    if [ -n "$IS_OSX" ]; then
+        export LDFLAGS="${LDFLAGS} -Wl,-rpath,${PROJ_DIR}/lib"
+    fi
 }
 
 function run_tests {
