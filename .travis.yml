@@ -3,7 +3,7 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.3.1rc1
+  - BUILD_COMMIT=3.3.1rc0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
@@ -59,7 +59,6 @@ before_install:
 - git config --global advice.detachedHead false
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
-- source patch.sh
 - before_install
 install:
 - clean_code $REPO_DIR $BUILD_COMMIT
