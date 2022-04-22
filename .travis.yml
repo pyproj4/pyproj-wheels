@@ -3,7 +3,7 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.3.0
+  - BUILD_COMMIT=3.3.1
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
@@ -56,6 +56,7 @@ matrix:
     - MB_ML_VER=2014
     - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
 before_install:
+- git config --global advice.detachedHead false
 - source multibuild/common_utils.sh
 - source multibuild/travis_steps.sh
 - before_install
