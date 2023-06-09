@@ -3,7 +3,7 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.5.0
+  - BUILD_COMMIT=3.6.0rc0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
@@ -25,16 +25,6 @@ dist: xenial
 services: docker
 matrix:
   include:
-  - os: linux
-    arch: arm64-graviton2
-    dist: focal
-    virt: vm
-    group: edge
-    env:
-    - MB_PYTHON_VERSION=3.8
-    - PLAT=aarch64
-    - MB_ML_VER=2014
-    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
   - os: linux
     arch: arm64-graviton2
     dist: focal
