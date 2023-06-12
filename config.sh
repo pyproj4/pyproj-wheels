@@ -1,12 +1,12 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-SQLITE_VERSION=3350500
-LIBTIFF_VERSION=4.3.0
-CURL_VERSION=7.76.1
-NGHTTP2_VERSION=1.43.0
+SQLITE_VERSION=3420000
+LIBTIFF_VERSION=4.5.0
+CURL_VERSION=8.1.2
+NGHTTP2_VERSION=1.54.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=9.2.0
+export PROJ_VERSION=9.2.1
 
 
 function install_curl_certs {
@@ -72,7 +72,7 @@ function build_sqlite {
     #     brew install sqlite3
     #     sqlite3 --version
     # else
-    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2021
+    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2023
     # fi
     touch sqlite-stamp
 }
