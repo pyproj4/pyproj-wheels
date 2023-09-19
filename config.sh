@@ -6,7 +6,7 @@ CURL_VERSION=8.1.2
 NGHTTP2_VERSION=1.54.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=9.2.1
+export PROJ_VERSION=9.3.0
 
 
 function install_curl_certs {

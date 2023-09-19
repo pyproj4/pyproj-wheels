@@ -3,12 +3,12 @@ env:
   global:
   - REPO_DIR=pyproj
   # Commit from your-project that you want to build
-  - BUILD_COMMIT=3.6.0
+  - BUILD_COMMIT=3.6.1rc0
   - BUILD_DEPENDS="Cython"  # pip dependencies to _build_ your project
   # pip dependencies to _test_ your project.  Include any dependencies
   # that you need, that are also specified in BUILD_DEPENDS, this will be
   # a separate install.
-  - TEST_DEPENDS="Cython pytest numpy pandas xarray"
+  - TEST_DEPENDS="Cython pytest numpy"
   - PLAT=x86_64
   - MB_ML_VER=2014
   - TWINE_USERNAME=__token__
@@ -52,6 +52,16 @@ matrix:
     group: edge
     env:
     - MB_PYTHON_VERSION=3.11
+    - PLAT=aarch64
+    - MB_ML_VER=2014
+    - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
+  - os: linux
+    arch: arm64-graviton2
+    dist: focal
+    virt: vm
+    group: edge
+    env:
+    - MB_PYTHON_VERSION=3.12
     - PLAT=aarch64
     - MB_ML_VER=2014
     - DOCKER_TEST_IMAGE=multibuild/focal_{PLAT}
