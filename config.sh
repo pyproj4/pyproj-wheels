@@ -1,12 +1,12 @@
 # Define custom utilities
 # Test for macOS with [ -n "$IS_OSX" ]
-SQLITE_VERSION=3420000
-LIBTIFF_VERSION=4.5.0
-CURL_VERSION=8.1.2
-NGHTTP2_VERSION=1.54.0
+SQLITE_VERSION=3460100
+LIBTIFF_VERSION=4.6.0
+CURL_VERSION=8.6.0
+NGHTTP2_VERSION=1.60.0
 
 export PROJ_WHEEL=true
-export PROJ_VERSION=9.3.0
+export PROJ_VERSION=9.4.1
 
 
 function install_curl_certs {
@@ -23,6 +23,19 @@ function remove_curl_certs {
     if [ -n "$IS_OSX" ]; then
         unset CURL_CA_BUNDLE
     fi
+}
+
+function build_perl {
+    if [ -n "$IS_MACOS" ]; then return; fi  # OSX has perl already
+    if [ -e perl-stamp ]; then return; fi
+    if [[ $MB_ML_VER == "_2_24" ]]; then
+        # debian:9 based distro
+        apt-get install -y perl
+    else
+        # centos based distro
+        yum_install perl-core
+    fi
+    touch perl-stamp
 }
 
 function build_nghttp2 {
@@ -44,8 +57,9 @@ function build_curl_ssl {
     if [ -n "$IS_OSX" ]; then
         flags="$flags --with-darwinssl"
     else  # manylinux
+        suppress build_perl
         suppress build_openssl
-        flags="$flags --with-ssl"
+        flags="$flags --with-ssl --without-libpsl"
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_PREFIX/lib
     fi
     fetch_unpack https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz
@@ -72,14 +86,14 @@ function build_sqlite {
     #     brew install sqlite3
     #     sqlite3 --version
     # else
-    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2023
+    build_simple sqlite-autoconf $SQLITE_VERSION https://www.sqlite.org/2024
     # fi
     touch sqlite-stamp
 }
 
 function build_proj {
     if [ -e proj-stamp ]; then return; fi
-    get_modern_cmake
+    suppress get_modern_cmake
     fetch_unpack https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz
     suppress build_curl_ssl
     (cd proj-${PROJ_VERSION:0:5} \
@@ -100,7 +114,7 @@ function build_proj {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    install_curl_certs
+    suppress install_curl_certs
     suppress build_zlib
     suppress build_sqlite
     suppress build_libtiff
@@ -114,7 +128,7 @@ function pre_build {
 
 function run_tests {
     pyproj -v
-    python -m pip install shapely~=1.7.1 || echo "Shapely install failed"
+    python -m pip install shapely || echo "Shapely install failed"
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import pyproj; pyproj.Proj(init='epsg:4269')"
